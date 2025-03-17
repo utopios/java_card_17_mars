@@ -35,7 +35,11 @@ public class Scaffolding extends Applet {
             case 0x10:
                 handle10(apdu);
                 break;
-
+            case 0x30:
+                short dataLength = apdu.setIncomingAndReceive();
+                byte[] data = new byte[dataLength];
+                Util.arrayCopyNonAtomic(buffer, ISO7816.OFFSET_CDATA, data, (short)0, dataLength);
+                break;
             default:
                 ISOException.throwIt(ISO7816.SW_INS_NOT_SUPPORTED);
         }
