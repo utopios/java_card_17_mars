@@ -16,12 +16,14 @@ public class Scaffolding extends Applet {
     private static final byte INS_INCREMENT = (byte)0x30;
     private static final byte[] HELLO = {(byte)'h', (byte)'e', (byte)'l', (byte)'l', (byte)'o'};
     private short counter;
+    private OwnerPIN pin;
 
     /**
      * Only this class's install method should create the applet object.
      */
     protected Scaffolding() {
-        
+        pin = new OwnerPIN((byte)3, (byte)4);
+        pin.update({'1', '2', '3', '4'}, (short) 0, (short) 4);
         register();
     }
 
@@ -51,7 +53,22 @@ public class Scaffolding extends Applet {
         //         ISOException.throwIt(ISO7816.SW_INS_NOT_SUPPORTED);
         // }
 
-        exercice1(apdu);
+        //exercice1(apdu);
+
+        //Exemple d'utilisation du pin
+       byte[] buffer = apdu.getBuffer();
+       byte lc = buffer[ISO7816.OFFSET_LC];
+       short dataOffset = ISO7816.OFFSET_CDATA;
+       if(lc < PIN_SIZE || lc > PIN_SIZE) {
+            ISOException.throwIt(ISO7816.SW_WRONG_LENGTH);
+       }
+       if(pin.getTriesRemaining() == 0) {
+        //
+       }
+
+       if(!pin.check(buffer, dataOffset, lc)) {
+        ISOException.throwIt(ISO7816.SW_SECURITY_STATUS_NOT_SATISFIED);
+       }
     }
 
     private void handle10(APDU apdu) {
