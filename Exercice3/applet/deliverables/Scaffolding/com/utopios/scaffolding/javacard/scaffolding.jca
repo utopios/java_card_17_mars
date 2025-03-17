@@ -1,0 +1,360 @@
+// converted by version  [v24.1]
+// on Mon Mar 17 16:45:44 CET 2025
+
+.package com/utopios/scaffolding {
+	.aid 0xA0:0x0:0x0:0x0:0x62:0x3:0x1:0xC:0x1;
+	.version 1.0;
+
+	.imports {
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x1 1.9;		//javacard/framework
+		0xA0:0x0:0x0:0x0:0x62:0x0:0x1 1.0;		//java/lang
+	}
+
+	.applet {
+		0xA0:0x0:0x0:0x0:0x62:0x3:0x1:0xC:0x1:0x1 Scaffolding;
+	}
+
+	.constantPool {
+		// 0
+		instanceFieldRef short Scaffolding/balance;
+		// 1
+		instanceFieldRef short[] Scaffolding/tempBuffer;
+		// 2
+		staticMethodRef 0.8.15(SB)[S;		// javacard/framework/JCSystem.makeTransientShortArray(SB)[S
+		// 3
+		staticMethodRef 0.3.0()V;		// javacard/framework/Applet.<init>()V
+		// 4
+		virtualMethodRef 0.3.1()V;		// register()V
+		// 5
+		.classRef Scaffolding;
+		// 6
+		staticMethodRef Scaffolding/<init>()V;
+		// 7
+		virtualMethodRef 0.3.3()Z;		// selectingApplet()Z
+		// 8
+		virtualMethodRef 0.10.1()[B;		// getBuffer()[B
+		// 9
+		staticMethodRef Scaffolding/getBalance(Ljavacard/framework/APDU;)V;
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+		// 10
+		staticMethodRef Scaffolding/credit(Ljavacard/framework/APDU;)V;
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+		// 11
+		staticMethodRef Scaffolding/debit(Ljavacard/framework/APDU;)V;
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+		// 12
+		staticMethodRef Scaffolding/resetBalance(Ljavacard/framework/APDU;)V;
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+		// 13
+		staticMethodRef 0.7.1(S)V;		// javacard/framework/ISOException.throwIt(S)V
+		// 14
+		staticMethodRef 0.16.6([BSS)S;		// javacard/framework/Util.setShort([BSS)S
+		// 15
+		virtualMethodRef 0.10.8(SS)V;		// setOutgoingAndSend(SS)V
+		// 16
+		.classRef 1.2;		// java/lang/Exception
+		// 17
+		virtualMethodRef 0.10.6()S;		// setIncomingAndReceive()S
+		// 18
+		staticMethodRef 0.16.4([BS)S;		// javacard/framework/Util.getShort([BS)S
+		// 19
+		staticMethodRef 0.8.1()V;		// javacard/framework/JCSystem.beginTransaction()V
+		// 20
+		staticMethodRef 0.8.2()V;		// javacard/framework/JCSystem.commitTransaction()V
+		// 21
+		staticMethodRef 0.8.0()V;		// javacard/framework/JCSystem.abortTransaction()V
+	}
+
+	.class public Scaffolding 0 extends 0.3 {		// extends javacard/framework/Applet
+
+		.fields {
+			private short[] tempBuffer 0;		// [S
+			private short balance 1;		// S
+			private static final byte INS_GET_BALANCE = 48;		// B
+			private static final byte INS_CREDIT = 50;		// B
+			private static final byte INS_DEBIT = 52;		// B
+			private static final byte INS_RESET_BALANCE = 54;		// B
+		}
+
+		.publicMethodTable 4 8 {
+			equals(Ljava/lang/Object;)Z 0;
+			register()V 1;
+			register([BSB)V 2;
+			selectingApplet()Z 3;
+			deselect()V 4;
+			getShareableInterfaceObject(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable; 5;
+			select()Z 6;
+			process(Ljavacard/framework/APDU;)V 7;
+		}
+
+		.packageMethodTable 0 {
+		}
+
+		.method protected <init>()V 0 {
+			.stack 3;
+			.locals 0;
+
+				L0:	aload_0;
+					invokespecial 3;		// javacard/framework/Applet.<init>()V
+					sconst_0;
+					putfield_s_this 0;		// short com/utopios/scaffolding/Scaffolding.balance
+					aload_0;
+					bspush 64;
+					sconst_2;
+					invokestatic 2;		// javacard/framework/JCSystem.makeTransientShortArray(SB)[S
+					putfield_a 1;		// reference com/utopios/scaffolding/Scaffolding.tempBuffer
+					aload_0;
+					invokevirtual 4;		// register()V
+					return;
+		}
+
+		.method public select()Z 6 {
+			.stack 3;
+			.locals 0;
+
+				L0:	getfield_a_this 1;		// reference com/utopios/scaffolding/Scaffolding.tempBuffer
+					sconst_0;
+					getfield_s_this 0;		// short com/utopios/scaffolding/Scaffolding.balance
+					sastore;
+					sconst_1;
+					sreturn;
+		}
+
+		.method public static install([BSB)V 1 {
+			.stack 2;
+			.locals 0;
+
+				L0:	new 5;		// com/utopios/scaffolding/Scaffolding
+					dup;
+					invokespecial 6;		// com/utopios/scaffolding/Scaffolding.<init>()V
+					pop;
+					return;
+		}
+
+		.method public process(Ljavacard/framework/APDU;)V 7 {
+			.stack 2;
+			.locals 2;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	aload_0;
+					invokevirtual 7;		// selectingApplet()Z
+					ifeq L2;
+				L1:	return;
+				L2:	aload_1;
+					invokevirtual 8;		// getBuffer()[B
+					astore_2;
+				L3:	aload_2;
+					sconst_1;
+					baload;
+					sstore_3;
+				L4:	sload_3;
+					stableswitch L9 48 54 L5 L9 L6 L9 L7 L9 L8;
+				L5:	aload_0;
+					aload_1;
+					invokespecial 9;		// com/utopios/scaffolding/Scaffolding.getBalance(Ljavacard/framework/APDU;)V
+					goto L10;
+				L6:	aload_0;
+					aload_1;
+					invokespecial 10;		// com/utopios/scaffolding/Scaffolding.credit(Ljavacard/framework/APDU;)V
+					goto L10;
+				L7:	aload_0;
+					aload_1;
+					invokespecial 11;		// com/utopios/scaffolding/Scaffolding.debit(Ljavacard/framework/APDU;)V
+					goto L10;
+				L8:	aload_0;
+					aload_1;
+					invokespecial 12;		// com/utopios/scaffolding/Scaffolding.resetBalance(Ljavacard/framework/APDU;)V
+					goto L10;
+				L9:	sspush 27904;
+					invokestatic 13;		// javacard/framework/ISOException.throwIt(S)V
+				L10:	return;
+		}
+
+		.method private getBalance(Ljavacard/framework/APDU;)V {
+			.stack 3;
+			.locals 1;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	aload_1;
+					invokevirtual 8;		// getBuffer()[B
+					astore_2;
+				L1:	aload_2;
+					sconst_0;
+					getfield_s_this 0;		// short com/utopios/scaffolding/Scaffolding.balance
+					invokestatic 14;		// javacard/framework/Util.setShort([BSS)S
+					pop;
+					aload_1;
+					sconst_0;
+					sconst_2;
+					invokevirtual 15;		// setOutgoingAndSend(SS)V
+					return;
+		}
+
+		.method private credit(Ljavacard/framework/APDU;)V {
+			.stack 4;
+			.locals 4;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	aload_1;
+					invokevirtual 8;		// getBuffer()[B
+					astore_2;
+				L1:	aload_1;
+					invokevirtual 17;		// setIncomingAndReceive()S
+					sstore_3;
+				L2:	sload_3;
+					sconst_2;
+					if_scmpeq L4;
+				L3:	sspush 27012;
+					invokestatic 13;		// javacard/framework/ISOException.throwIt(S)V
+				L4:	aload_2;
+					sconst_5;
+					invokestatic 18;		// javacard/framework/Util.getShort([BS)S
+					sstore 4;
+				L5:	sload 4;
+					ifge L7;
+				L6:	sspush 27012;
+					invokestatic 13;		// javacard/framework/ISOException.throwIt(S)V
+				L7:	invokestatic 19;		// javacard/framework/JCSystem.beginTransaction()V
+				L8:	aload_0;
+					dup;
+					getfield_s 0;		// short com/utopios/scaffolding/Scaffolding.balance
+					sload 4;
+					sadd;
+					putfield_s 0;		// short com/utopios/scaffolding/Scaffolding.balance
+					getfield_a_this 1;		// reference com/utopios/scaffolding/Scaffolding.tempBuffer
+					sconst_0;
+					dup2;
+					saload;
+					sload 4;
+					sadd;
+					sastore;
+					invokestatic 20;		// javacard/framework/JCSystem.commitTransaction()V
+				L9:	goto L12;
+				L10:	astore 5;
+				L11:	invokestatic 21;		// javacard/framework/JCSystem.abortTransaction()V
+					sspush 28671;
+					invokestatic 13;		// javacard/framework/ISOException.throwIt(S)V
+				L12:	return;
+			.exceptionTable {
+				// start_block end_block handler_block catch_type_index
+				L8 L9 L10 16;
+			}
+		}
+
+		.method private debit(Ljavacard/framework/APDU;)V {
+			.stack 4;
+			.locals 4;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	aload_1;
+					invokevirtual 8;		// getBuffer()[B
+					astore_2;
+				L1:	aload_1;
+					invokevirtual 17;		// setIncomingAndReceive()S
+					sstore_3;
+				L2:	sload_3;
+					sconst_2;
+					if_scmpeq L4;
+				L3:	sspush 27012;
+					invokestatic 13;		// javacard/framework/ISOException.throwIt(S)V
+				L4:	aload_2;
+					sconst_5;
+					invokestatic 18;		// javacard/framework/Util.getShort([BS)S
+					sstore 4;
+				L5:	sload 4;
+					ifge L7;
+				L6:	sspush 27012;
+					invokestatic 13;		// javacard/framework/ISOException.throwIt(S)V
+				L7:	getfield_s_this 0;		// short com/utopios/scaffolding/Scaffolding.balance
+					sload 4;
+					ssub;
+					ifge L9;
+				L8:	sspush 26880;
+					invokestatic 13;		// javacard/framework/ISOException.throwIt(S)V
+				L9:	invokestatic 19;		// javacard/framework/JCSystem.beginTransaction()V
+				L10:	aload_0;
+					dup;
+					getfield_s 0;		// short com/utopios/scaffolding/Scaffolding.balance
+					sload 4;
+					ssub;
+					putfield_s 0;		// short com/utopios/scaffolding/Scaffolding.balance
+					getfield_a_this 1;		// reference com/utopios/scaffolding/Scaffolding.tempBuffer
+					sconst_0;
+					dup2;
+					saload;
+					sload 4;
+					ssub;
+					sastore;
+					invokestatic 20;		// javacard/framework/JCSystem.commitTransaction()V
+				L11:	goto L14;
+				L12:	astore 5;
+				L13:	invokestatic 21;		// javacard/framework/JCSystem.abortTransaction()V
+					sspush 28671;
+					invokestatic 13;		// javacard/framework/ISOException.throwIt(S)V
+				L14:	return;
+			.exceptionTable {
+				// start_block end_block handler_block catch_type_index
+				L10 L11 L12 16;
+			}
+		}
+
+		.method private resetBalance(Ljavacard/framework/APDU;)V {
+			.stack 3;
+			.locals 1;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	invokestatic 19;		// javacard/framework/JCSystem.beginTransaction()V
+				L1:	sconst_0;
+					putfield_s_this 0;		// short com/utopios/scaffolding/Scaffolding.balance
+					getfield_a_this 1;		// reference com/utopios/scaffolding/Scaffolding.tempBuffer
+					sconst_0;
+					sconst_0;
+					sastore;
+					invokestatic 20;		// javacard/framework/JCSystem.commitTransaction()V
+				L2:	goto L5;
+				L3:	astore_2;
+				L4:	invokestatic 21;		// javacard/framework/JCSystem.abortTransaction()V
+					sspush 28671;
+					invokestatic 13;		// javacard/framework/ISOException.throwIt(S)V
+				L5:	return;
+			.exceptionTable {
+				// start_block end_block handler_block catch_type_index
+				L1 L2 L3 16;
+			}
+		}
+
+		.method public deselect()V 4 {
+			.stack 3;
+			.locals 1;
+
+				L0:	invokestatic 19;		// javacard/framework/JCSystem.beginTransaction()V
+				L1:	aload_0;
+					getfield_a_this 1;		// reference com/utopios/scaffolding/Scaffolding.tempBuffer
+					sconst_0;
+					saload;
+					putfield_s 0;		// short com/utopios/scaffolding/Scaffolding.balance
+					invokestatic 20;		// javacard/framework/JCSystem.commitTransaction()V
+				L2:	goto L5;
+				L3:	astore_1;
+				L4:	invokestatic 21;		// javacard/framework/JCSystem.abortTransaction()V
+					sspush 28671;
+					invokestatic 13;		// javacard/framework/ISOException.throwIt(S)V
+				L5:	return;
+			.exceptionTable {
+				// start_block end_block handler_block catch_type_index
+				L1 L2 L3 16;
+			}
+		}
+
+	}
+
+}
