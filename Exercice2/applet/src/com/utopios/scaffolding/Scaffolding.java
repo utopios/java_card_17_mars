@@ -70,6 +70,7 @@ public class Scaffolding extends Applet {
                 changePin(apdu);
                 break;
             case INS_UNBLOCK_PIN:
+                unblockPin(apdu);
                 break;
             default:
                 ISOException.throwIt(ISO7816.SW_INS_NOT_SUPPORTED);
