@@ -1,31 +1,22 @@
-
-package com.utopios.scaffolding;
-
+import javacard.framework.ISO7816;
 import javacard.framework.APDU;
 import javacard.framework.Applet;
-import javacard.framework.ISO7816;
-import javacard.framework.ISOException;
 import javacard.framework.Util;
+import javacard.framework.ISOException;
 
-public class Scaffolding extends Applet {
-    
-    
-    /**
-     * Only this class's install method should create the applet object.
-     */
-    protected Scaffolding() {
-        
-        register();
-    }
+public class DemoApplet extends Applet {
 
-    
     public static void install(byte[] bArray, short bOffset, byte bLength) {
-        new Scaffolding();
+        new DemoApplet();
     }
 
-   
-   @Override 
-   public void process(APDU apdu) {
+    protected DemoApplet() {
+        //Initialisation de la configuration de l'applet
+    }
+
+    @Override
+    public void process(APDU apdu) {
+        //Traitement des commandes APDU
         byte[] buffer = apdu.getBuffer();
         if(selectingApplet()) {
             return;
@@ -48,6 +39,4 @@ public class Scaffolding extends Applet {
        apdu.setOutgoingAndSend((short)0, (short) hello.length);
     
     }
-    
-    
 }
