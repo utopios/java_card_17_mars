@@ -1,0 +1,42 @@
+// converted by version  [v24.1]
+// on Tue Apr 01 10:51:00 CEST 2025
+
+.package com/oracle/jcclassic/samples/arrayview/MyShareable {
+	.aid 0xA0:0x0:0x0:0x0:0x62:0x3:0x1:0xC:0xB;
+	.version 1.0;
+
+	.imports {
+		0xA0:0x0:0x0:0x0:0x62:0x0:0x1 1.0;		//java/lang
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x1 1.9;		//javacard/framework
+	}
+
+	.interface public abstract MyShareable 0 {
+
+		.shareable;
+
+		.superInterfaces {
+			1.2;		// javacard/framework/Shareable
+		}
+
+		.method public abstract handleRscView([B)B 0 {
+		}
+
+	}
+
+	.interface public abstract SecureCounterShareable 1 {
+
+		.shareable;
+
+		.superInterfaces {
+			1.2;		// javacard/framework/Shareable
+		}
+
+		.method public abstract getCounter()S 0 {
+		}
+
+		.method public abstract resetCounter()V 1 {
+		}
+
+	}
+
+}
