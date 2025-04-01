@@ -1,5 +1,5 @@
 // converted by version  [v24.1]
-// on Tue Apr 01 15:26:50 CEST 2025
+// on Tue Apr 01 15:32:08 CEST 2025
 
 .package com/utopios/scaffolding {
 	.aid 0xA0:0x0:0x0:0x0:0x62:0x3:0x1:0xC:0x1;
@@ -115,7 +115,7 @@
 					invokestatic 7;		// javacard/security/Signature.getInstance(BZ)Ljavacard/security/Signature;
 					putfield_a 1;		// reference com/utopios/scaffolding/Scaffolding.ecdsa
 					aload_0;
-					bspush 64;
+					sspush 128;
 					sconst_2;
 					invokestatic 9;		// javacard/framework/JCSystem.makeTransientByteArray(SB)[B
 					putfield_a 2;		// reference com/utopios/scaffolding/Scaffolding.buffer

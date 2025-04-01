@@ -18,7 +18,7 @@ public class Scaffolding extends Applet {
         privateKey = (ECPrivateKey) keyPair.getPrivate();
 
         ecdsa = Signature.getInstance(Signature.ALG_ECDSA_SHA_256, false);
-        buffer = JCSystem.makeTransientByteArray((short) 64, JCSystem.CLEAR_ON_DESELECT);
+        buffer = JCSystem.makeTransientByteArray((short) 128, JCSystem.CLEAR_ON_DESELECT);
         
         register();
     }
