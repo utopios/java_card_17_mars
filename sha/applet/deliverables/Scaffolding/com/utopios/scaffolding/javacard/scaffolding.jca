@@ -1,0 +1,146 @@
+// converted by version  [v24.1]
+// on Tue Apr 01 14:48:01 CEST 2025
+
+.package com/utopios/scaffolding {
+	.aid 0xA0:0x0:0x0:0x0:0x62:0x3:0x1:0xC:0x1;
+	.version 1.0;
+
+	.imports {
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x1 1.9;		//javacard/framework
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x2 1.8;		//javacard/security
+		0xA0:0x0:0x0:0x0:0x62:0x0:0x1 1.0;		//java/lang
+	}
+
+	.applet {
+		0xA0:0x0:0x0:0x0:0x62:0x3:0x1:0xC:0x1:0x1 Scaffolding;
+	}
+
+	.constantPool {
+		// 0
+		instanceFieldRef 1.11 Scaffolding/digest;
+		// 1
+		instanceFieldRef byte[] Scaffolding/hashBuffer;
+		// 2
+		staticMethodRef 0.3.0()V;		// javacard/framework/Applet.<init>()V
+		// 3
+		staticMethodRef 0.8.13(SB)[B;		// javacard/framework/JCSystem.makeTransientByteArray(SB)[B
+		// 4
+		staticMethodRef 1.11.0(BZ)Ljavacard/security/MessageDigest;;		// javacard/security/MessageDigest.getInstance(BZ)Ljavacard/security/MessageDigest;
+			.descriptor	Ljavacard/security/MessageDigest;	1.11;
+
+		// 5
+		virtualMethodRef 0.3.1()V;		// register()V
+		// 6
+		.classRef Scaffolding;
+		// 7
+		staticMethodRef Scaffolding/<init>()V;
+		// 8
+		virtualMethodRef 0.3.3()Z;		// selectingApplet()Z
+		// 9
+		virtualMethodRef 0.10.1()[B;		// getBuffer()[B
+		// 10
+		virtualMethodRef 0.10.6()S;		// setIncomingAndReceive()S
+		// 11
+		virtualMethodRef 1.11.1([BSS[BS)S;		// doFinal([BSS[BS)S
+		// 12
+		virtualMethodRef 0.10.7()S;		// setOutgoing()S
+		// 13
+		virtualMethodRef 0.10.9(S)V;		// setOutgoingLength(S)V
+		// 14
+		virtualMethodRef 0.10.5([BSS)V;		// sendBytesLong([BSS)V
+	}
+
+	.class public Scaffolding 0 extends 0.3 {		// extends javacard/framework/Applet
+
+		.fields {
+			private 1.11 digest 0;		// Ljavacard/security/MessageDigest;
+			private byte[] hashBuffer 1;		// [B
+		}
+
+		.publicMethodTable 7 8 {
+			equals(Ljava/lang/Object;)Z 0;
+			register()V 1;
+			register([BSB)V 2;
+			selectingApplet()Z 3;
+			deselect()V 4;
+			getShareableInterfaceObject(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable; 5;
+			select()Z 6;
+			process(Ljavacard/framework/APDU;)V 7;
+		}
+
+		.packageMethodTable 0 {
+		}
+
+		.method protected <init>()V 0 {
+			.stack 3;
+			.locals 0;
+
+				L0:	aload_0;
+					invokespecial 2;		// javacard/framework/Applet.<init>()V
+					aload_0;
+					sconst_4;
+					sconst_0;
+					invokestatic 4;		// javacard/security/MessageDigest.getInstance(BZ)Ljavacard/security/MessageDigest;
+					putfield_a 0;		// reference com/utopios/scaffolding/Scaffolding.digest
+					aload_0;
+					bspush 32;
+					sconst_2;
+					invokestatic 3;		// javacard/framework/JCSystem.makeTransientByteArray(SB)[B
+					putfield_a 1;		// reference com/utopios/scaffolding/Scaffolding.hashBuffer
+					aload_0;
+					invokevirtual 5;		// register()V
+					return;
+		}
+
+		.method public static install([BSB)V 1 {
+			.stack 2;
+			.locals 0;
+
+				L0:	new 6;		// com/utopios/scaffolding/Scaffolding
+					dup;
+					invokespecial 7;		// com/utopios/scaffolding/Scaffolding.<init>()V
+					pop;
+					return;
+		}
+
+		.method public process(Ljavacard/framework/APDU;)V 7 {
+			.stack 6;
+			.locals 2;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	aload_0;
+					invokevirtual 8;		// selectingApplet()Z
+					ifeq L2;
+				L1:	return;
+				L2:	aload_1;
+					invokevirtual 9;		// getBuffer()[B
+					astore_2;
+				L3:	aload_1;
+					invokevirtual 10;		// setIncomingAndReceive()S
+					sstore_3;
+				L4:	getfield_a_this 0;		// reference com/utopios/scaffolding/Scaffolding.digest
+					aload_2;
+					sconst_5;
+					sload_3;
+					getfield_a_this 1;		// reference com/utopios/scaffolding/Scaffolding.hashBuffer
+					sconst_0;
+					invokevirtual 11;		// doFinal([BSS[BS)S
+					pop;
+					aload_1;
+					invokevirtual 12;		// setOutgoing()S
+					pop;
+					aload_1;
+					bspush 32;
+					invokevirtual 13;		// setOutgoingLength(S)V
+					aload_1;
+					getfield_a_this 1;		// reference com/utopios/scaffolding/Scaffolding.hashBuffer
+					sconst_0;
+					bspush 32;
+					invokevirtual 14;		// sendBytesLong([BSS)V
+					return;
+		}
+
+	}
+
+}
