@@ -1,0 +1,446 @@
+// converted by version  [v24.1]
+// on Tue Apr 01 14:41:02 CEST 2025
+
+.package com/utopios/scaffolding {
+	.aid 0xA0:0x0:0x0:0x0:0x62:0x3:0x1:0xC:0x1;
+	.version 1.0;
+
+	.imports {
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x1 1.9;		//javacard/framework
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x2 1.8;		//javacard/security
+		0xA0:0x0:0x0:0x0:0x62:0x2:0x1 1.8;		//javacardx/crypto
+		0xA0:0x0:0x0:0x0:0x62:0x0:0x1 1.0;		//java/lang
+	}
+
+	.applet {
+		0xA0:0x0:0x0:0x0:0x62:0x3:0x1:0xC:0x1:0x1 RsaMailboxApplet;
+	}
+
+	.constantPool {
+		// 0
+		instanceFieldRef 1.9 RsaMailboxApplet/pubKey;
+		// 1
+		instanceFieldRef 1.8 RsaMailboxApplet/privKey;
+		// 2
+		instanceFieldRef 2.1 RsaMailboxApplet/rsaCipher;
+		// 3
+		instanceFieldRef byte[] RsaMailboxApplet/tempBuffer;
+		// 4
+		instanceFieldRef 1.9 Scaffolding/publicKey;
+		// 5
+		instanceFieldRef 1.8 Scaffolding/privateKey;
+		// 6
+		instanceFieldRef 2.1 Scaffolding/cipher;
+		// 7
+		instanceFieldRef byte[] Scaffolding/buffer;
+		// 8
+		.classRef 1.8;		// javacard/security/RSAPrivateKey
+		// 9
+		.classRef 1.16;		// javacard/security/KeyPair
+		// 10
+		staticMethodRef 2.1.0(BZ)Ljavacardx/crypto/Cipher;;		// javacardx/crypto/Cipher.getInstance(BZ)Ljavacardx/crypto/Cipher;
+			.descriptor	Ljavacardx/crypto/Cipher;	2.1;
+
+		// 11
+		staticMethodRef 1.16.0(BS)V;		// javacard/security/KeyPair.<init>(BS)V
+		// 12
+		staticMethodRef 0.8.13(SB)[B;		// javacard/framework/JCSystem.makeTransientByteArray(SB)[B
+		// 13
+		virtualMethodRef 1.16.1()V;		// genKeyPair()V
+		// 14
+		virtualMethodRef 0.3.1()V;		// register()V
+		// 15
+		.classRef RsaMailboxApplet;
+		// 16
+		staticMethodRef RsaMailboxApplet/<init>()V;
+		// 17
+		virtualMethodRef 0.3.3()Z;		// selectingApplet()Z
+		// 18
+		virtualMethodRef 0.10.1()[B;		// getBuffer()[B
+		// 19
+		staticMethodRef RsaMailboxApplet/sendPublicKey(Ljavacard/framework/APDU;)V;
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+		// 20
+		staticMethodRef RsaMailboxApplet/decryptMessage(Ljavacard/framework/APDU;)V;
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+		// 21
+		staticMethodRef 0.7.1(S)V;		// javacard/framework/ISOException.throwIt(S)V
+		// 22
+		virtualMethodRef 0.10.7()S;		// setOutgoing()S
+		// 23
+		virtualMethodRef 0.10.9(S)V;		// setOutgoingLength(S)V
+		// 24
+		virtualMethodRef 0.10.5([BSS)V;		// sendBytesLong([BSS)V
+		// 25
+		virtualMethodRef 0.10.6()S;		// setIncomingAndReceive()S
+		// 26
+		virtualMethodRef 2.1.3(Ljavacard/security/Key;B)V;		// init(Ljavacard/security/Key;B)V
+			.descriptor	Ljavacard/security/Key;	1.0;
+
+		// 27
+		virtualMethodRef 2.1.1([BSS[BS)S;		// doFinal([BSS[BS)S
+		// 28
+		virtualMethodRef 1.16.3()Ljavacard/security/PublicKey;;		// getPublic()Ljavacard/security/PublicKey;
+			.descriptor	Ljavacard/security/PublicKey;	1.3;
+
+		// 29
+		.classRef 1.9;		// javacard/security/RSAPublicKey
+		// 30
+		staticMethodRef 0.3.0()V;		// javacard/framework/Applet.<init>()V
+		// 31
+		virtualMethodRef 1.16.2()Ljavacard/security/PrivateKey;;		// getPrivate()Ljavacard/security/PrivateKey;
+			.descriptor	Ljavacard/security/PrivateKey;	1.2;
+
+		// 32
+		virtualMethodRef 0.3.1()V;		// register()V
+		// 33
+		.classRef Scaffolding;
+		// 34
+		staticMethodRef Scaffolding/<init>()V;
+		// 35
+		virtualMethodRef 0.3.3()Z;		// selectingApplet()Z
+	}
+
+	.class public RsaMailboxApplet 0 extends 0.3 {		// extends javacard/framework/Applet
+
+		.fields {
+			private 1.9 pubKey 0;		// Ljavacard/security/RSAPublicKey;
+			private 1.8 privKey 1;		// Ljavacard/security/RSAPrivateKey;
+			private 2.1 rsaCipher 2;		// Ljavacardx/crypto/Cipher;
+			private byte[] tempBuffer 3;		// [B
+			private static final byte INS_GET_PUBLIC_KEY = 33;		// B
+			private static final byte INS_DECRYPT_MESSAGE = 32;		// B
+		}
+
+		.publicMethodTable 7 8 {
+			equals(Ljava/lang/Object;)Z 0;
+			register()V 1;
+			register([BSB)V 2;
+			selectingApplet()Z 3;
+			deselect()V 4;
+			getShareableInterfaceObject(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable; 5;
+			select()Z 6;
+			process(Ljavacard/framework/APDU;)V 7;
+		}
+
+		.packageMethodTable 0 {
+		}
+
+		.method protected <init>()V 0 {
+			.stack 4;
+			.locals 1;
+
+				L0:	aload_0;
+					invokespecial 30;		// javacard/framework/Applet.<init>()V
+					new 9;		// javacard/security/KeyPair
+					dup;
+					sconst_1;
+					sspush 1024;
+					invokespecial 11;		// javacard/security/KeyPair.<init>(BS)V
+					astore_1;
+				L1:	aload_1;
+					invokevirtual 13;		// genKeyPair()V
+					aload_0;
+					aload_1;
+					invokevirtual 28;		// getPublic()Ljavacard/security/PublicKey;
+					checkcast 0 29;		// T_CLASSORINTERFACE javacard/security/RSAPublicKey
+					putfield_a 0;		// reference com/utopios/scaffolding/RsaMailboxApplet.pubKey
+					aload_0;
+					aload_1;
+					invokevirtual 31;		// getPrivate()Ljavacard/security/PrivateKey;
+					checkcast 0 8;		// T_CLASSORINTERFACE javacard/security/RSAPrivateKey
+					putfield_a 1;		// reference com/utopios/scaffolding/RsaMailboxApplet.privKey
+					aload_0;
+					bspush 10;
+					sconst_0;
+					invokestatic 10;		// javacardx/crypto/Cipher.getInstance(BZ)Ljavacardx/crypto/Cipher;
+					putfield_a 2;		// reference com/utopios/scaffolding/RsaMailboxApplet.rsaCipher
+					aload_0;
+					sspush 256;
+					sconst_2;
+					invokestatic 12;		// javacard/framework/JCSystem.makeTransientByteArray(SB)[B
+					putfield_a 3;		// reference com/utopios/scaffolding/RsaMailboxApplet.tempBuffer
+					aload_0;
+					invokevirtual 14;		// register()V
+					return;
+		}
+
+		.method public static install([BSB)V 1 {
+			.stack 2;
+			.locals 0;
+
+				L0:	new 15;		// com/utopios/scaffolding/RsaMailboxApplet
+					dup;
+					invokespecial 16;		// com/utopios/scaffolding/RsaMailboxApplet.<init>()V
+					pop;
+					return;
+		}
+
+		.method public process(Ljavacard/framework/APDU;)V 7 {
+			.stack 2;
+			.locals 1;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	aload_0;
+					invokevirtual 17;		// selectingApplet()Z
+					ifeq L2;
+				L1:	return;
+				L2:	aload_1;
+					invokevirtual 18;		// getBuffer()[B
+					astore_2;
+				L3:	aload_2;
+					sconst_1;
+					baload;
+					slookupswitch L6 2 32 L5 33 L4;
+				L4:	aload_0;
+					aload_1;
+					invokespecial 19;		// com/utopios/scaffolding/RsaMailboxApplet.sendPublicKey(Ljavacard/framework/APDU;)V
+					goto L7;
+				L5:	aload_0;
+					aload_1;
+					invokespecial 20;		// com/utopios/scaffolding/RsaMailboxApplet.decryptMessage(Ljavacard/framework/APDU;)V
+					goto L7;
+				L6:	sspush 27904;
+					invokestatic 21;		// javacard/framework/ISOException.throwIt(S)V
+				L7:	return;
+		}
+
+		.method private sendPublicKey(Ljavacard/framework/APDU;)V {
+			.stack 4;
+			.locals 3;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	sconst_0;
+					sstore_2;
+				L1:	getfield_a_this 0;		// reference com/utopios/scaffolding/RsaMailboxApplet.pubKey
+					getfield_a_this 3;		// reference com/utopios/scaffolding/RsaMailboxApplet.tempBuffer
+					sload_2;
+					invokeinterface 3 29 5;		// javacard/security/RSAPublicKey
+					sstore_3;
+				L2:	sload_2;
+					sload_3;
+					sadd;
+					sstore_2;
+					getfield_a_this 0;		// reference com/utopios/scaffolding/RsaMailboxApplet.pubKey
+					getfield_a_this 3;		// reference com/utopios/scaffolding/RsaMailboxApplet.tempBuffer
+					sload_2;
+					invokeinterface 3 29 4;		// javacard/security/RSAPublicKey
+					sstore 4;
+				L3:	sload_2;
+					sload 4;
+					sadd;
+					sstore_2;
+					aload_1;
+					invokevirtual 22;		// setOutgoing()S
+					pop;
+					aload_1;
+					sload_2;
+					invokevirtual 23;		// setOutgoingLength(S)V
+					aload_1;
+					getfield_a_this 3;		// reference com/utopios/scaffolding/RsaMailboxApplet.tempBuffer
+					sconst_0;
+					sload_2;
+					invokevirtual 24;		// sendBytesLong([BSS)V
+					return;
+		}
+
+		.method private decryptMessage(Ljavacard/framework/APDU;)V {
+			.stack 6;
+			.locals 3;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	aload_1;
+					invokevirtual 18;		// getBuffer()[B
+					astore_2;
+				L1:	aload_1;
+					invokevirtual 25;		// setIncomingAndReceive()S
+					sstore_3;
+				L2:	getfield_a_this 2;		// reference com/utopios/scaffolding/RsaMailboxApplet.rsaCipher
+					getfield_a_this 1;		// reference com/utopios/scaffolding/RsaMailboxApplet.privKey
+					sconst_1;
+					invokevirtual 26;		// init(Ljavacard/security/Key;B)V
+					getfield_a_this 2;		// reference com/utopios/scaffolding/RsaMailboxApplet.rsaCipher
+					aload_2;
+					sconst_5;
+					sload_3;
+					getfield_a_this 3;		// reference com/utopios/scaffolding/RsaMailboxApplet.tempBuffer
+					sconst_0;
+					invokevirtual 27;		// doFinal([BSS[BS)S
+					sstore 4;
+				L3:	aload_1;
+					invokevirtual 22;		// setOutgoing()S
+					pop;
+					aload_1;
+					sload 4;
+					invokevirtual 23;		// setOutgoingLength(S)V
+					aload_1;
+					getfield_a_this 3;		// reference com/utopios/scaffolding/RsaMailboxApplet.tempBuffer
+					sconst_0;
+					sload 4;
+					invokevirtual 24;		// sendBytesLong([BSS)V
+					return;
+		}
+
+		.method private encryptMessage(Ljavacard/framework/APDU;)V {
+			.stack 6;
+			.locals 3;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	aload_1;
+					invokevirtual 18;		// getBuffer()[B
+					astore_2;
+				L1:	aload_1;
+					invokevirtual 25;		// setIncomingAndReceive()S
+					sstore_3;
+				L2:	getfield_a_this 2;		// reference com/utopios/scaffolding/RsaMailboxApplet.rsaCipher
+					getfield_a_this 1;		// reference com/utopios/scaffolding/RsaMailboxApplet.privKey
+					sconst_2;
+					invokevirtual 26;		// init(Ljavacard/security/Key;B)V
+					getfield_a_this 2;		// reference com/utopios/scaffolding/RsaMailboxApplet.rsaCipher
+					aload_2;
+					sconst_5;
+					sload_3;
+					getfield_a_this 3;		// reference com/utopios/scaffolding/RsaMailboxApplet.tempBuffer
+					sconst_0;
+					invokevirtual 27;		// doFinal([BSS[BS)S
+					sstore 4;
+				L3:	aload_1;
+					invokevirtual 22;		// setOutgoing()S
+					pop;
+					aload_1;
+					sload 4;
+					invokevirtual 23;		// setOutgoingLength(S)V
+					aload_1;
+					getfield_a_this 3;		// reference com/utopios/scaffolding/RsaMailboxApplet.tempBuffer
+					sconst_0;
+					sload 4;
+					invokevirtual 24;		// sendBytesLong([BSS)V
+					return;
+		}
+
+	}
+
+	.class public Scaffolding 1 extends 0.3 {		// extends javacard/framework/Applet
+
+		.fields {
+			private 1.9 publicKey 0;		// Ljavacard/security/RSAPublicKey;
+			private 1.8 privateKey 1;		// Ljavacard/security/RSAPrivateKey;
+			private 2.1 cipher 2;		// Ljavacardx/crypto/Cipher;
+			private byte[] buffer 3;		// [B
+		}
+
+		.publicMethodTable 7 8 {
+			equals(Ljava/lang/Object;)Z 0;
+			register()V 1;
+			register([BSB)V 2;
+			selectingApplet()Z 3;
+			deselect()V 4;
+			getShareableInterfaceObject(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable; 5;
+			select()Z 6;
+			process(Ljavacard/framework/APDU;)V 7;
+		}
+
+		.packageMethodTable 0 {
+		}
+
+		.method protected <init>()V 0 {
+			.stack 4;
+			.locals 1;
+
+				L0:	aload_0;
+					invokespecial 30;		// javacard/framework/Applet.<init>()V
+					new 9;		// javacard/security/KeyPair
+					dup;
+					sconst_1;
+					sspush 1024;
+					invokespecial 11;		// javacard/security/KeyPair.<init>(BS)V
+					astore_1;
+				L1:	aload_1;
+					invokevirtual 13;		// genKeyPair()V
+					aload_0;
+					aload_1;
+					invokevirtual 28;		// getPublic()Ljavacard/security/PublicKey;
+					checkcast 0 29;		// T_CLASSORINTERFACE javacard/security/RSAPublicKey
+					putfield_a 4;		// reference com/utopios/scaffolding/Scaffolding.publicKey
+					aload_0;
+					aload_1;
+					invokevirtual 31;		// getPrivate()Ljavacard/security/PrivateKey;
+					checkcast 0 8;		// T_CLASSORINTERFACE javacard/security/RSAPrivateKey
+					putfield_a 5;		// reference com/utopios/scaffolding/Scaffolding.privateKey
+					aload_0;
+					bspush 10;
+					sconst_0;
+					invokestatic 10;		// javacardx/crypto/Cipher.getInstance(BZ)Ljavacardx/crypto/Cipher;
+					putfield_a 6;		// reference com/utopios/scaffolding/Scaffolding.cipher
+					aload_0;
+					sspush 256;
+					sconst_2;
+					invokestatic 12;		// javacard/framework/JCSystem.makeTransientByteArray(SB)[B
+					putfield_a 7;		// reference com/utopios/scaffolding/Scaffolding.buffer
+					aload_0;
+					invokevirtual 32;		// register()V
+					return;
+		}
+
+		.method public static install([BSB)V 1 {
+			.stack 2;
+			.locals 0;
+
+				L0:	new 33;		// com/utopios/scaffolding/Scaffolding
+					dup;
+					invokespecial 34;		// com/utopios/scaffolding/Scaffolding.<init>()V
+					pop;
+					return;
+		}
+
+		.method public process(Ljavacard/framework/APDU;)V 7 {
+			.stack 6;
+			.locals 3;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	aload_0;
+					invokevirtual 35;		// selectingApplet()Z
+					ifeq L2;
+				L1:	return;
+				L2:	aload_1;
+					invokevirtual 18;		// getBuffer()[B
+					astore_2;
+				L3:	aload_1;
+					invokevirtual 25;		// setIncomingAndReceive()S
+					sstore_3;
+				L4:	getfield_a_this 6;		// reference com/utopios/scaffolding/Scaffolding.cipher
+					getfield_a_this 5;		// reference com/utopios/scaffolding/Scaffolding.privateKey
+					sconst_2;
+					invokevirtual 26;		// init(Ljavacard/security/Key;B)V
+					getfield_a_this 6;		// reference com/utopios/scaffolding/Scaffolding.cipher
+					aload_2;
+					sconst_5;
+					sload_3;
+					getfield_a_this 7;		// reference com/utopios/scaffolding/Scaffolding.buffer
+					sconst_0;
+					invokevirtual 27;		// doFinal([BSS[BS)S
+					sstore 4;
+				L5:	aload_1;
+					invokevirtual 22;		// setOutgoing()S
+					pop;
+					aload_1;
+					sload 4;
+					invokevirtual 23;		// setOutgoingLength(S)V
+					aload_1;
+					getfield_a_this 7;		// reference com/utopios/scaffolding/Scaffolding.buffer
+					sconst_0;
+					sload 4;
+					invokevirtual 24;		// sendBytesLong([BSS)V
+					return;
+		}
+
+	}
+
+}
