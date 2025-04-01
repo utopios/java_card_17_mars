@@ -1,0 +1,397 @@
+// converted by version  [v24.1]
+// on Tue Apr 01 13:38:53 CEST 2025
+
+.package com/utopios/scaffolding {
+	.aid 0xA0:0x0:0x0:0x0:0x62:0x3:0x1:0xC:0x1;
+	.version 1.0;
+
+	.imports {
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x1 1.9;		//javacard/framework
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x2 1.8;		//javacard/security
+		0xA0:0x0:0x0:0x0:0x62:0x2:0x1 1.8;		//javacardx/crypto
+		0xA0:0x0:0x0:0x0:0x62:0x0:0x1 1.0;		//java/lang
+	}
+
+	.applet {
+		0xA0:0x0:0x0:0x0:0x62:0x3:0x1:0xC:0x1:0x1 AesBadgeApplet;
+	}
+
+	.constantPool {
+		// 0
+		instanceFieldRef 1.20 AesBadgeApplet/aesKey;
+		// 1
+		instanceFieldRef 2.1 AesBadgeApplet/cipher;
+		// 2
+		instanceFieldRef byte[] AesBadgeApplet/buffer;
+		// 3
+		instanceFieldRef byte[] AesBadgeApplet/userId;
+		// 4
+		instanceFieldRef 1.20 Scaffolding/aesKey;
+		// 5
+		instanceFieldRef 2.1 Scaffolding/cipher;
+		// 6
+		instanceFieldRef byte[] Scaffolding/buffer;
+		// 7
+		staticMethodRef 1.13.0(BSZ)Ljavacard/security/Key;;		// javacard/security/KeyBuilder.buildKey(BSZ)Ljavacard/security/Key;
+			.descriptor	Ljavacard/security/Key;	1.0;
+
+		// 8
+		staticMethodRef 0.8.13(SB)[B;		// javacard/framework/JCSystem.makeTransientByteArray(SB)[B
+		// 9
+		.classRef 1.20;		// javacard/security/AESKey
+		// 10
+		staticMethodRef 0.3.0()V;		// javacard/framework/Applet.<init>()V
+		// 11
+		virtualMethodRef 0.3.1()V;		// register()V
+		// 12
+		.classRef AesBadgeApplet;
+		// 13
+		staticMethodRef AesBadgeApplet/<init>()V;
+		// 14
+		virtualMethodRef 0.3.3()Z;		// selectingApplet()Z
+		// 15
+		virtualMethodRef 0.10.1()[B;		// getBuffer()[B
+		// 16
+		virtualMethodRef 0.10.6()S;		// setIncomingAndReceive()S
+		// 17
+		virtualMethodRef 2.1.3(Ljavacard/security/Key;B)V;		// init(Ljavacard/security/Key;B)V
+			.descriptor	Ljavacard/security/Key;	1.0;
+
+		// 18
+		virtualMethodRef 2.1.1([BSS[BS)S;		// doFinal([BSS[BS)S
+		// 19
+		virtualMethodRef 0.10.7()S;		// setOutgoing()S
+		// 20
+		virtualMethodRef 0.10.9(S)V;		// setOutgoingLength(S)V
+		// 21
+		virtualMethodRef 0.10.5([BSS)V;		// sendBytesLong([BSS)V
+		// 22
+		staticMethodRef 1.14.0(B)Ljavacard/security/RandomData;;		// javacard/security/RandomData.getInstance(B)Ljavacard/security/RandomData;
+			.descriptor	Ljavacard/security/RandomData;	1.14;
+
+		// 23
+		virtualMethodRef 1.14.1([BSS)V;		// generateData([BSS)V
+		// 24
+		staticMethodRef 2.1.0(BZ)Ljavacardx/crypto/Cipher;;		// javacardx/crypto/Cipher.getInstance(BZ)Ljavacardx/crypto/Cipher;
+			.descriptor	Ljavacardx/crypto/Cipher;	2.1;
+
+		// 25
+		virtualMethodRef 0.3.1()V;		// register()V
+		// 26
+		.classRef Scaffolding;
+		// 27
+		staticMethodRef Scaffolding/<init>()V;
+		// 28
+		virtualMethodRef 0.3.3()Z;		// selectingApplet()Z
+	}
+
+	.class public AesBadgeApplet 0 extends 0.3 {		// extends javacard/framework/Applet
+
+		.fields {
+			private 1.20 aesKey 0;		// Ljavacard/security/AESKey;
+			private 2.1 cipher 1;		// Ljavacardx/crypto/Cipher;
+			private byte[] buffer 2;		// [B
+			private byte[] userId 3;		// [B
+		}
+
+		.publicMethodTable 7 8 {
+			equals(Ljava/lang/Object;)Z 0;
+			register()V 1;
+			register([BSB)V 2;
+			selectingApplet()Z 3;
+			deselect()V 4;
+			getShareableInterfaceObject(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable; 5;
+			select()Z 6;
+			process(Ljavacard/framework/APDU;)V 7;
+		}
+
+		.packageMethodTable 0 {
+		}
+
+		.method protected <init>()V 0 {
+			.stack 5;
+			.locals 2;
+
+				L0:	aload_0;
+					invokespecial 10;		// javacard/framework/Applet.<init>()V
+					aload_0;
+					bspush 15;
+					sspush 128;
+					sconst_0;
+					invokestatic 7;		// javacard/security/KeyBuilder.buildKey(BSZ)Ljavacard/security/Key;
+					checkcast 0 9;		// T_CLASSORINTERFACE javacard/security/AESKey
+					putfield_a 0;		// reference com/utopios/scaffolding/AesBadgeApplet.aesKey
+					bspush 16;
+					newarray 11;
+					astore_1;
+				L1:	sconst_2;
+					invokestatic 22;		// javacard/security/RandomData.getInstance(B)Ljavacard/security/RandomData;
+					astore_2;
+				L2:	aload_2;
+					aload_1;
+					sconst_0;
+					bspush 16;
+					invokevirtual 23;		// generateData([BSS)V
+					getfield_a_this 0;		// reference com/utopios/scaffolding/AesBadgeApplet.aesKey
+					aload_1;
+					sconst_0;
+					invokeinterface 3 9 4;		// javacard/security/AESKey
+					aload_0;
+					bspush 13;
+					sconst_0;
+					invokestatic 24;		// javacardx/crypto/Cipher.getInstance(BZ)Ljavacardx/crypto/Cipher;
+					putfield_a 1;		// reference com/utopios/scaffolding/AesBadgeApplet.cipher
+					aload_0;
+					sspush 256;
+					sconst_2;
+					invokestatic 8;		// javacard/framework/JCSystem.makeTransientByteArray(SB)[B
+					putfield_a 2;		// reference com/utopios/scaffolding/AesBadgeApplet.buffer
+					aload_0;
+					bspush 16;
+					newarray 11;
+					dup;
+					sconst_0;
+					bspush 85;
+					bastore;
+					dup;
+					sconst_1;
+					bspush 83;
+					bastore;
+					dup;
+					sconst_2;
+					bspush 69;
+					bastore;
+					dup;
+					sconst_3;
+					bspush 82;
+					bastore;
+					dup;
+					sconst_4;
+					bspush 95;
+					bastore;
+					dup;
+					sconst_5;
+					bspush 48;
+					bastore;
+					dup;
+					bspush 6;
+					bspush 48;
+					bastore;
+					dup;
+					bspush 7;
+					bspush 49;
+					bastore;
+					dup;
+					bspush 8;
+					sconst_0;
+					bastore;
+					dup;
+					bspush 9;
+					sconst_0;
+					bastore;
+					dup;
+					bspush 10;
+					sconst_0;
+					bastore;
+					dup;
+					bspush 11;
+					sconst_0;
+					bastore;
+					dup;
+					bspush 12;
+					sconst_0;
+					bastore;
+					dup;
+					bspush 13;
+					sconst_0;
+					bastore;
+					dup;
+					bspush 14;
+					sconst_0;
+					bastore;
+					dup;
+					bspush 15;
+					sconst_0;
+					bastore;
+					putfield_a 3;		// reference com/utopios/scaffolding/AesBadgeApplet.userId
+					aload_0;
+					invokevirtual 11;		// register()V
+					return;
+		}
+
+		.method public static install([BSB)V 1 {
+			.stack 2;
+			.locals 0;
+
+				L0:	new 12;		// com/utopios/scaffolding/AesBadgeApplet
+					dup;
+					invokespecial 13;		// com/utopios/scaffolding/AesBadgeApplet.<init>()V
+					pop;
+					return;
+		}
+
+		.method public process(Ljavacard/framework/APDU;)V 7 {
+			.stack 6;
+			.locals 3;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	aload_0;
+					invokevirtual 14;		// selectingApplet()Z
+					ifeq L2;
+				L1:	return;
+				L2:	aload_1;
+					invokevirtual 15;		// getBuffer()[B
+					astore_2;
+				L3:	aload_1;
+					invokevirtual 16;		// setIncomingAndReceive()S
+					sstore_3;
+				L4:	getfield_a_this 1;		// reference com/utopios/scaffolding/AesBadgeApplet.cipher
+					getfield_a_this 0;		// reference com/utopios/scaffolding/AesBadgeApplet.aesKey
+					sconst_2;
+					invokevirtual 17;		// init(Ljavacard/security/Key;B)V
+					getfield_a_this 1;		// reference com/utopios/scaffolding/AesBadgeApplet.cipher
+					getfield_a_this 3;		// reference com/utopios/scaffolding/AesBadgeApplet.userId
+					sconst_0;
+					bspush 16;
+					getfield_a_this 2;		// reference com/utopios/scaffolding/AesBadgeApplet.buffer
+					sconst_0;
+					invokevirtual 18;		// doFinal([BSS[BS)S
+					sstore 4;
+				L5:	aload_1;
+					invokevirtual 19;		// setOutgoing()S
+					pop;
+					aload_1;
+					sload 4;
+					invokevirtual 20;		// setOutgoingLength(S)V
+					aload_1;
+					getfield_a_this 2;		// reference com/utopios/scaffolding/AesBadgeApplet.buffer
+					sconst_0;
+					sload 4;
+					invokevirtual 21;		// sendBytesLong([BSS)V
+					return;
+		}
+
+	}
+
+	.class public Scaffolding 1 extends 0.3 {		// extends javacard/framework/Applet
+
+		.fields {
+			private 1.20 aesKey 0;		// Ljavacard/security/AESKey;
+			private 2.1 cipher 1;		// Ljavacardx/crypto/Cipher;
+			private byte[] buffer 2;		// [B
+		}
+
+		.publicMethodTable 7 8 {
+			equals(Ljava/lang/Object;)Z 0;
+			register()V 1;
+			register([BSB)V 2;
+			selectingApplet()Z 3;
+			deselect()V 4;
+			getShareableInterfaceObject(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable; 5;
+			select()Z 6;
+			process(Ljavacard/framework/APDU;)V 7;
+		}
+
+		.packageMethodTable 0 {
+		}
+
+		.method protected <init>()V 0 {
+			.stack 4;
+			.locals 2;
+
+				L0:	aload_0;
+					invokespecial 10;		// javacard/framework/Applet.<init>()V
+					aload_0;
+					bspush 15;
+					sspush 128;
+					sconst_0;
+					invokestatic 7;		// javacard/security/KeyBuilder.buildKey(BSZ)Ljavacard/security/Key;
+					checkcast 0 9;		// T_CLASSORINTERFACE javacard/security/AESKey
+					putfield_a 4;		// reference com/utopios/scaffolding/Scaffolding.aesKey
+					bspush 16;
+					newarray 11;
+					astore_1;
+				L1:	sconst_2;
+					invokestatic 22;		// javacard/security/RandomData.getInstance(B)Ljavacard/security/RandomData;
+					astore_2;
+				L2:	aload_2;
+					aload_1;
+					sconst_0;
+					bspush 16;
+					invokevirtual 23;		// generateData([BSS)V
+					getfield_a_this 4;		// reference com/utopios/scaffolding/Scaffolding.aesKey
+					aload_1;
+					sconst_0;
+					invokeinterface 3 9 4;		// javacard/security/AESKey
+					aload_0;
+					bspush 13;
+					sconst_0;
+					invokestatic 24;		// javacardx/crypto/Cipher.getInstance(BZ)Ljavacardx/crypto/Cipher;
+					putfield_a 5;		// reference com/utopios/scaffolding/Scaffolding.cipher
+					aload_0;
+					sspush 256;
+					sconst_2;
+					invokestatic 8;		// javacard/framework/JCSystem.makeTransientByteArray(SB)[B
+					putfield_a 6;		// reference com/utopios/scaffolding/Scaffolding.buffer
+					aload_0;
+					invokevirtual 25;		// register()V
+					return;
+		}
+
+		.method public static install([BSB)V 1 {
+			.stack 2;
+			.locals 0;
+
+				L0:	new 26;		// com/utopios/scaffolding/Scaffolding
+					dup;
+					invokespecial 27;		// com/utopios/scaffolding/Scaffolding.<init>()V
+					pop;
+					return;
+		}
+
+		.method public process(Ljavacard/framework/APDU;)V 7 {
+			.stack 6;
+			.locals 3;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	aload_0;
+					invokevirtual 28;		// selectingApplet()Z
+					ifeq L2;
+				L1:	return;
+				L2:	aload_1;
+					invokevirtual 15;		// getBuffer()[B
+					astore_2;
+				L3:	aload_1;
+					invokevirtual 16;		// setIncomingAndReceive()S
+					sstore_3;
+				L4:	getfield_a_this 5;		// reference com/utopios/scaffolding/Scaffolding.cipher
+					getfield_a_this 4;		// reference com/utopios/scaffolding/Scaffolding.aesKey
+					sconst_2;
+					invokevirtual 17;		// init(Ljavacard/security/Key;B)V
+					getfield_a_this 5;		// reference com/utopios/scaffolding/Scaffolding.cipher
+					aload_2;
+					sconst_5;
+					sload_3;
+					getfield_a_this 6;		// reference com/utopios/scaffolding/Scaffolding.buffer
+					sconst_0;
+					invokevirtual 18;		// doFinal([BSS[BS)S
+					sstore 4;
+				L5:	aload_1;
+					invokevirtual 19;		// setOutgoing()S
+					pop;
+					aload_1;
+					sload 4;
+					invokevirtual 20;		// setOutgoingLength(S)V
+					aload_1;
+					getfield_a_this 6;		// reference com/utopios/scaffolding/Scaffolding.buffer
+					sconst_0;
+					sload 4;
+					invokevirtual 21;		// sendBytesLong([BSS)V
+					return;
+		}
+
+	}
+
+}
