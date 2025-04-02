@@ -13,6 +13,11 @@ import java.util.stream.IntStream;
 public class TestScript extends APDUScript {
 
     private List<CommandAPDU> commands = new LinkedList<>();
+
+    public List<ResponseAPDU> getResponses() {
+        return responses;
+    }
+
     private List<ResponseAPDU> responses = new LinkedList<>();
     private int index = 0;
 

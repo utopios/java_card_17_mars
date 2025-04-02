@@ -33,7 +33,7 @@ public class Terminal {
         this.testScript = testScript;
     }
 
-    private void init() throws IOException, NoSuchAlgorithmException, CardException, NoSuchProviderException {
+    public void init() throws IOException, NoSuchAlgorithmException, CardException, NoSuchProviderException {
         deploy = ams.openSession(said);
         for(CAPElement capElement : capElements) {
             deploy = deploy.load(capElement.getAid(), capElement.getCapFile().getBytes());
@@ -67,6 +67,8 @@ public class Terminal {
             System.out.println("Connection to simulator failed");
         }
     }
+
+
 
 
     private static CardTerminal getTerminal(String... connectionParams) throws NoSuchAlgorithmException, NoSuchProviderException, CardException {
@@ -115,6 +117,15 @@ public class Terminal {
 
     public void append(CommandAPDU apdu) {
         testScript.append(apdu);
+    }
+
+    public static CommandAPDU parseCommandAPDU(String input) {
+        String[] parts = input.trim().split(" ");
+        byte[] commandBytes = new byte[parts.length];
+        for (int i = 0; i < parts.length; i++) {
+            commandBytes[i] = (byte) Integer.parseInt(parts[i], 16);
+        }
+        return new CommandAPDU(commandBytes);
     }
 
 
