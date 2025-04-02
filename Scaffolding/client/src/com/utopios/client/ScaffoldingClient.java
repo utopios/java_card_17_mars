@@ -47,7 +47,10 @@ public class ScaffoldingClient {
 		int iResult = 0;
 
 		try {
-			CAPFile appFile = CAPFile.from(getArg(args, "cap"));
+			
+            //A => Arrange
+            
+            CAPFile appFile = CAPFile.from(getArg(args, "cap"));
 			Properties props = new Properties();
 			props.load(new FileInputStream(getArg(args, "props")));
 
@@ -110,6 +113,7 @@ public class ScaffoldingClient {
                 scanner.close();
                 testScript.append(undeploy);
 
+                //Act => Execution des actions
                 List<ResponseAPDU> responses = testScript.run(c.getBasicChannel());
 				c.disconnect(true);
 
@@ -228,6 +232,7 @@ public class ScaffoldingClient {
             return apdu;
         }
 
+
         private boolean isExpected(ResponseAPDU response) {
 
             ResponseAPDU expected = (index < 0)? response : this.responses.get(index);
@@ -238,9 +243,33 @@ public class ScaffoldingClient {
                 print(expected);
                 return false;
             }
+            checkSW(expected.getSW(), response);
+            checkArrayEquals(expected.getBytes(), response.getBytes());
             print(response);
             return true;
         }
+
+        private void checkArrayEquals(byte[] expected, byte[] actual) throws ScriptFailedException {
+        if (!Arrays.equals(expected, actual)) {
+            throw new ScriptFailedException(
+                String.format(
+                    "Échec de la comparaison de tableaux !%nAttendu: %s%nReçu   : %s",
+                    Arrays.toString(expected),
+                    Arrays.toString(actual)
+                )
+            );
+        }
+    }
+        private void checkSW(int expectedSW, ResponseAPDU actual) throws ScriptFailedException {
+        if (actual.getSW() != expectedSW) {
+            throw new ScriptFailedException(
+                String.format(
+                    "SW incorrect ! (attendu 0x%04X, reçu 0x%04X)",
+                    expectedSW, actual.getSW()
+                )
+            );
+        }
+    }
 
         private static void print(CommandAPDU apdu) {
             StringBuilder sb = new StringBuilder();
